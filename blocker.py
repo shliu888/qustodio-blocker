@@ -12,7 +12,26 @@ domains = [
     'status.qustodio.com',
     'statistics.qustodio.com',
     'activities.qustodio.com',
-    'access.qustodio.com'
+    'access.qustodio.com',
+    'monitor.qustodio.com',
+    'manage.qustodio.com',
+    'update.qustodio.com',
+    'updates.qustodio.com',
+    'resources.qustodio.com',
+    'dev.qustodio.com',
+    'resources.qustodio.com',
+    'vpn.qustodio.com',
+    'api-platform-dev.qustodio.com',
+    'web-cdn.qustodio.com',
+    'auth.qustodio.com',
+    'api-pre.qustodio.com',
+    'rs.qustodio.com',
+    'movistar-api.qustodio.com',
+    'mdm-service-platform-dev.qustodio.com',
+    'mdm-service-family-dev.qustodio.com',
+    'family.qustodio.com',
+    'help.qustodio.com',
+    'api2-dev.qustodio.com'
 ]
 
 # Path to the hosts file
