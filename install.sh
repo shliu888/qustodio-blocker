@@ -1,3 +1,3 @@
 #!/bin/bash
-chmod +x hackingtoolkit
-sudo mv hackingtoolkit /usr/local/bin
+chmod +x qustodio-blocker
+sudo mv qustodio-blocker /usr/local/bin
