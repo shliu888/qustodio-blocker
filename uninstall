@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+
+import os
+import shutil
+import subprocess
+
+domains = [
+    'qustodio.com',
+    'api.qustodio.com',
+    'logs.qustodio.com',
+    'reports.qustodio.com',
+    'analytics.qustodio.com',
+    'monitoring.qustodio.com',
+    'status.qustodio.com',
+    'statistics.qustodio.com',
+    'activities.qustodio.com',
+    'access.qustodio.com',
+    'monitor.qustodio.com',
+    'manage.qustodio.com',
+    'update.qustodio.com',
+    'updates.qustodio.com',
+    'resources.qustodio.com',
+    'dev.qustodio.com',
+    'vpn.qustodio.com',
+    'api-platform-dev.qustodio.com',
+    'web-cdn.qustodio.com',
+    'auth.qustodio.com',
+    'api-pre.qustodio.com',
+    'rs.qustodio.com',
+    'movistar-api.qustodio.com',
+    'mdm-service-platform-dev.qustodio.com',
+    'mdm-service-family-dev.qustodio.com',
+    'family.qustodio.com',
+    'help.qustodio.com',
+    'api2-dev.qustodio.com'
+]
+
+hosts_path = '/etc/hosts'
+backup_path = '/etc/hosts.bak'
+original_backup_path = '/etc/hosts.original.bak'
+
+if not os.path.exists(original_backup_path):
+    shutil.copy(hosts_path, original_backup_path)
+    print(f"Original hosts file backed up to: {original_backup_path}")
+
+if not os.path.exists(backup_path):
+    shutil.copy(hosts_path, backup_path)
+    print(f"Current hosts file backed up to: {backup_path}")
+
+try:
+    with open(hosts_path, 'r') as hosts_file:
+        lines = hosts_file.readlines()
+
+    new_lines = []
+    for line in lines:
+        if not any(domain in line for domain in domains):
+            new_lines.append(line)
+
+    with open(hosts_path, 'w') as hosts_file:
+        hosts_file.writelines(new_lines)
+
+    try:
+        subprocess.run('sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder', shell=True, check=True) # corrected command.
+    except subprocess.SubprocessError as e:
+        print(f"Error flushing DNS cache: {e}")
+
+    print("Qustodio entries removed from /etc/hosts.")
+
+except FileNotFoundError:
+    print(f"Error: {hosts_path} not found.")
+except PermissionError:
+    print("Permission denied: You need to run this script with admin privileges (sudo).")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
