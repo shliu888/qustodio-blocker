@@ -60,7 +60,7 @@ try:
         hosts_file.writelines(new_lines)
 
     try:
-        subprocess.run('sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder', shell=True, check=True) # corrected command.
+        subprocess.run('sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder', shell=True, check=True) 
     except subprocess.SubprocessError as e:
         print(f"Error flushing DNS cache: {e}")
 
